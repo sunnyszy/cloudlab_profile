@@ -89,6 +89,11 @@ pc.defineParameter("tempFileSystemMount", "Temporary Filesystem Mount Point",
                    "you do not need to change this, but we provide the option just in case your software " +
                    "is finicky.")
 
+# Optional number of network interfaces
+pc.defineParameter("numNetworkInterface", "Number of Network Interface Except the Control Interface",
+                   portal.ParameterType.INTEGER, 1,advanced=True,
+                  longDescription="Number of Network Interface Except the Control Interface. On machine i interface j, the ip will be 192.168.{j+1}.{i}")
+
 # Retrieve the values the user specifies during instantiation.
 params = pc.bindParameters()
 
@@ -107,12 +112,10 @@ if params.nodeCount > 1:
         lan = request.Link()
     else:
         lan = request.LAN()
-        pass
     if params.bestEffort:
         lan.best_effort = True
     elif params.linkSpeed > 0:
         lan.bandwidth = params.linkSpeed
-    pass
 
 # Process nodes, adding to link or lan.
 for i in range(params.nodeCount):
@@ -123,21 +126,16 @@ for i in range(params.nodeCount):
     else:
         name = "node" + str(i)
         node = request.RawPC(name)
-        pass
     if params.osImage and params.osImage != "default":
         node.disk_image = params.osImage
-        pass
     # Add to lan
     if params.nodeCount > 1:
-        iface1 = node.addInterface("eth1", pg.IPv4Address('10.1.1.%d' % (i + 1),'255.255.255.0'))
-        lan.addInterface(iface1)
-        iface2 = node.addInterface("eth2", pg.IPv4Address('10.1.2.%d' % (i + 1),'255.255.255.0'))
-        lan.addInterface(iface2)
-        pass
+        for j in range(len(params.numNetworkInterface)):
+          iface = node.addInterface("eth%d" % j+1, pg.IPv4Address('192.168.%d.%d' % (j, i + 1),'255.255.255.0'))
+          lan.addInterface(iface)
     # Optional hardware type.
     if params.phystype != "":
         node.hardware_type = params.phystype
-        pass
     # Optional Blockstore
     if params.tempFileSystemSize > 0 or params.tempFileSystemMax:
         bs = node.Blockstore(name + "-bs", params.tempFileSystemMount)
@@ -145,10 +143,7 @@ for i in range(params.nodeCount):
             bs.size = "0GB"
         else:
             bs.size = str(params.tempFileSystemSize) + "GB"
-            pass
         bs.placement = "any"
-        pass
-    pass
 
 # Print the RSpec to the enclosing page.
 pc.printRequestRSpec(request)
