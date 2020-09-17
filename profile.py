@@ -130,7 +130,7 @@ for i in range(params.nodeCount):
         node.disk_image = params.osImage
     # Add to lan
     if params.nodeCount > 1:
-        for j in range(len(params.numNetworkInterface)):
+        for j in range(params.numNetworkInterface):
           iface = node.addInterface("eth%d" % j+1, pg.IPv4Address('192.168.%d.%d' % (j, i + 1),'255.255.255.0'))
           lan.addInterface(iface)
     # Optional hardware type.
