@@ -23,7 +23,7 @@ pc = portal.Context()
 request = pc.makeRequestRSpec()
 
 # Variable number of nodes.
-pc.defineParameter("nodeCount", "Number of Nodes", portal.ParameterType.INTEGER, 1,
+pc.defineParameter("nodeCount", "Number of Nodes", portal.ParameterType.INTEGER, 2,
                    longDescription="If you specify more then one node, " +
                    "we will create a lan for you.")
 
