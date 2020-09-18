@@ -81,7 +81,7 @@ pc.defineParameter("tempFileSystemMount", "Temporary Filesystem Mount Point",
 
 # Optional number of network interfaces
 pc.defineParameter("numNetworkInterface", "Number of Network Interface Except the Control Interface",
-                   portal.ParameterType.INTEGER, 1,advanced=True,
+                   portal.ParameterType.INTEGER, 2, advanced=True,
                   longDescription="Number of Network Interface Except the Control Interface. On machine i interface j, the ip will be 192.168.{j+1}.{i}")
 
 # Retrieve the values the user specifies during instantiation.
