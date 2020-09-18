@@ -27,19 +27,9 @@ pc.defineParameter("nodeCount", "Number of Nodes", portal.ParameterType.INTEGER,
                    longDescription="If you specify more then one node, " +
                    "we will create a lan for you.")
 
-# Pick your OS.
-imageList = [
-    ('default', 'Default Image'),
-    ('urn:publicid:IDN+emulab.net+image+emulab-ops//UBUNTU18-64-STD', 'UBUNTU 18.04'),
-    ('urn:publicid:IDN+emulab.net+image+emulab-ops//UBUNTU16-64-STD', 'UBUNTU 16.04'),
-    ('urn:publicid:IDN+emulab.net+image+emulab-ops//CENTOS7-64-STD',  'CENTOS 7'),
-    ('urn:publicid:IDN+emulab.net+image+emulab-ops//FBSD112-64-STD', 'FreeBSD 11.2')]
-
 pc.defineParameter("osImage", "Select OS image",
-                   portal.ParameterType.IMAGE,
-                   imageList[0], imageList,
-                   longDescription="Most clusters have this set of images, " +
-                   "pick your favorite one.")
+                   portal.ParameterType.STRING,
+                   "default")
 
 # Optional physical type for all nodes.
 pc.defineParameter("phystype",  "Optional physical node type",
