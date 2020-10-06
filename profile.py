@@ -32,10 +32,10 @@ pc.defineParameter("osImage", "Select OS image",
                    "default")
 
 # Optional physical type for all nodes.
-pc.defineParameter("phystype",  "Optional physical node type",
-                   portal.ParameterType.STRING, "c220g1",
-                   longDescription="Specify a physical node type (pc3000,d710,etc) " +
-                   "instead of letting the resource mapper choose for you.")
+#pc.defineParameter("phystype",  "Optional physical node type",
+#                   portal.ParameterType.STRING, "c220g1",
+#                   longDescription="Specify a physical node type (pc3000,d710,etc) " +
+#                   "instead of letting the resource mapper choose for you.")
 
 # Optionally create XEN VMs instead of allocating bare metal nodes.
 pc.defineParameter("useVMs",  "Use XEN VMs",
@@ -127,7 +127,7 @@ for i in range(params.nodeCount):
           iface = node.addInterface("eth%d" % (j+1), pg.IPv4Address('192.168.%d.%d' % (j, i + 1),'255.255.255.0'))
           lans[j].addInterface(iface)
     # Optional hardware type.
-    if params.phystype != "":
+    if params.phystype != "" and i == 0:
         node.hardware_type = params.phystype
     # Optional Blockstore
     if params.tempFileSystemSize > 0 or params.tempFileSystemMax:
