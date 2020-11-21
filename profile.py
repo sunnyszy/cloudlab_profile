@@ -31,7 +31,7 @@ pc.defineParameter("clientCount", "Number of NFS clients",
 
 pc.defineParameter("osImage", "Select OS image",
                    portal.ParameterType.STRING,
-                   "urn:publicid:IDN+clemson.cloudlab.us+image+cops-PG0:webcachesim_ubuntu18")
+                   "urn:publicid:IDN+clemson.cloudlab.us+image+cops-PG0:lrb")
 
 pc.defineParameter("DATASET", "URN of your dataset.",
                    portal.ParameterType.STRING,
